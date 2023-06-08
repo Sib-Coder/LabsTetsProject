@@ -29,15 +29,15 @@ func Conect() {
 	fmt.Println("DataBase_is_WORK")
 }
 
-// получение пользователя из бд
-func ExtractUserData() UserInfo {
+// получение пользователя из бд - готова по имени
+func ExtractUserData(t UserInfo) UserInfo {
 	var u UserInfo
-	res, err := Db.Query("SELECT name, lastname, surname,status FROM employees WHERE name='Daniil';")
+	res, err := Db.Query("SELECT name,lastname, surname, status, gender, TO_CHAR(datebirth,'YYYY-MM-DD'), TO_CHAR(dateadded,'YYYY-MM-DD')  FROM employees WHERE name=$1;", t.Name)
 	if err != nil {
 		panic(err)
 	}
 	for res.Next() {
-		err = res.Scan(&u.Name, &u.LastName, &u.SurName, &u.Status)
+		err = res.Scan(&u.Name, &u.LastName, &u.SurName, &u.Status, &u.Gender, &u.DateBirth, &u.DateAdded)
 		if err != nil {
 			panic(err)
 		}
@@ -47,7 +47,7 @@ func ExtractUserData() UserInfo {
 
 }
 
-// надо переделать на передачу структуры и везде работать через вызов полей структуры
+// добавление данных пользователя - готова
 func AddUserData(u UserInfo) bool {
 	var count_users int
 
@@ -65,7 +65,7 @@ func AddUserData(u UserInfo) bool {
 	}
 
 	if count_users == 0 {
-		result, err := Db.Exec("insert into employees (name, lastname, surname, gender, status ) values ($1, $2, $3, $4, $5);", u.Name, u.LastName, u.SurName, u.Gender, u.Status)
+		result, err := Db.Exec("insert into employees (name, lastname, surname, gender, status,datebirth,dateadded ) values ($1, $2, $3, $4, $5,$6,$7);", u.Name, u.LastName, u.SurName, u.Gender, u.Status, u.DateBirth, u.DateAdded)
 		if err != nil {
 			panic(err)
 		}
@@ -78,9 +78,9 @@ func AddUserData(u UserInfo) bool {
 
 }
 
-// подумать над параметрами обновлений
+// подумать над параметрами обновлений параметрами будет имя и фамилия - готова
 func UpdateUser(u UserInfo) {
-	result, err := Db.Exec("UPDATE employees set  surname =$3, gender = $4 WHERE name =$1 AND lastname =$2 ;", u.Name, u.LastName, u.SurName, u.Gender)
+	result, err := Db.Exec("UPDATE employees set  surname =$3, gender = $4 ,status =$5,datebirth=$6,dateadded=$7 WHERE name =$1 AND lastname =$2 ;", u.Name, u.LastName, u.SurName, u.Gender, u.Status, u.DateBirth, u.DateAdded)
 	if err != nil {
 		panic(err)
 	} else {
@@ -90,7 +90,7 @@ func UpdateUser(u UserInfo) {
 
 }
 
-// удаление пользователя на основе его статуса и имени
+// удаление пользователя на основе его статуса и имени и фамилии- готова
 func DeleteUser(u UserInfo) {
 	result, err := Db.Exec("DELETE FROM employees WHERE name = $1 and status = $2 and lastname =$3", u.Name, u.Status, u.LastName)
 	if err != nil {
@@ -101,12 +101,33 @@ func DeleteUser(u UserInfo) {
 	}
 
 }
+
+func ExtractUserDataMas() []UserInfo { //получение всех пользователей из бд
+	var u UserInfo
+	var u_mas []UserInfo
+	res, err := Db.Query("SELECT name,lastname,surname,gender,status, TO_CHAR(datebirth,'YYYY-MM-DD'), TO_CHAR(dateadded,'YYYY-MM-DD') FROM employees;")
+	if err != nil {
+		panic(err)
+	}
+	for res.Next() {
+		err = res.Scan(&u.Name, &u.LastName, &u.SurName, &u.Gender, &u.Status, &u.DateBirth, &u.DateAdded)
+		if err != nil {
+			panic(err)
+		}
+		//fmt.Println(fmt.Sprintf("in database have %s , %s ", u.FName, u.LName))
+		u_mas = append(u_mas, u)
+	}
+	fmt.Println(u_mas) //пример как вырывать параметры из запроса
+	return u_mas
+
+}
 func main() {
-	user := UserInfo{Name: "Anna", LastName: "Sinitsyna", SurName: "25-17Pipa", Gender: "woman", Status: "active", DateBirth: "2008-05-04", DateAdded: "2023-06-08"}
+	//user := UserInfo{Name: "Anna", LastName: "Sinitsyna", SurName: "25-17Pipa", Gender: "woman", Status: "active", DateBirth: "2008-05-04", DateAdded: "2023-06-08"}
 	Conect()
 	dan := ExtractUserData()
 	fmt.Println(dan)
-	AddUserData(user)
-	UpdateUser(user)
+	//AddUserData(user)
+	//UpdateUser(user)
 	//DeleteUser(user)
+	ExtractUserDataMas()
 }
