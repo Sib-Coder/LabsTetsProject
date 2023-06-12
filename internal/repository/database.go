@@ -11,13 +11,13 @@ var Db *sqlx.DB
 
 // подключение к бд
 func Conect() {
-	db, err := sqlx.Open("postgres", "user=postgres password=postgres dbname=postgres sslmode=disable")
+	db, err := sqlx.Open("postgres", "host='10.10.0.136' port=5432 user=postgres password=postgres dbname=postgres sslmode=disable")
 	if err != nil {
 		fmt.Println("DataBase NOT WORK")
 	}
 	Db = db
 	//defer Db.Close() //Закрытие БД
-	//fmt.Println("DataBase_is_WORK")
+	fmt.Println("DataBase_is_WORK")
 }
 
 // получение пользователя из бд - готова по имени
