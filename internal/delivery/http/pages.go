@@ -1,8 +1,9 @@
 package pages
 
 import (
-	"awesomeProject9/database"
-	"awesomeProject9/model"
+	"LabsTetsProject/internal/data"
+	database "LabsTetsProject/internal/repository"
+
 	"encoding/json"
 	"fmt"
 	"net/http"

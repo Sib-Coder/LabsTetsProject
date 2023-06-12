@@ -1,7 +1,7 @@
 package database
 
 import (
-	"awesomeProject9/model"
+	"LabsTetsProject/internal/data"
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
@@ -13,11 +13,11 @@ var Db *sqlx.DB
 func Conect() {
 	db, err := sqlx.Open("postgres", "user=postgres password=postgres dbname=postgres sslmode=disable")
 	if err != nil {
-		panic(err)
+		fmt.Println("DataBase NOT WORK")
 	}
 	Db = db
 	//defer Db.Close() //Закрытие БД
-	fmt.Println("DataBase_is_WORK")
+	//fmt.Println("DataBase_is_WORK")
 }
 
 // получение пользователя из бд - готова по имени

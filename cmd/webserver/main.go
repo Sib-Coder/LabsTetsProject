@@ -1,8 +1,8 @@
 package main
 
 import (
-	"awesomeProject9/database"
-	"awesomeProject9/pages"
+	pages "LabsTetsProject/internal/delivery/http"
+	database "LabsTetsProject/internal/repository"
 	"net/http"
 )
 
