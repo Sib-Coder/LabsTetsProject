@@ -188,3 +188,36 @@ func ExtractAllUserHTTPASC(w http.ResponseWriter, r *http.Request) {
 
 	}
 }
+
+func ExtractAllUserHTTPLimit(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method == "GET" {
+		//обработка параметров через бд
+		result := database.ExtractUserDataMasLimit()
+		//конвертим в Json
+		b, err := json.Marshal(result)
+		if err != nil {
+			fmt.Printf("Error: %s", err)
+			return
+		}
+
+		fmt.Fprintln(w, string(b))
+
+	}
+}
+func ExtractAllUserHTTPOffset(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method == "GET" {
+		//обработка параметров через бд
+		result := database.ExtractUserDataMasOffset()
+		//конвертим в Json
+		b, err := json.Marshal(result)
+		if err != nil {
+			fmt.Printf("Error: %s", err)
+			return
+		}
+
+		fmt.Fprintln(w, string(b))
+
+	}
+}

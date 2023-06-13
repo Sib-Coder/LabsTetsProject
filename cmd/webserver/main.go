@@ -14,11 +14,12 @@ func main() {
 	http.HandleFunc("/delete_data", pages.DeleteDAtaHTTP)
 	http.HandleFunc("/add_data", pages.AddDAtaHTTP)
 	http.HandleFunc("/all_data_user", pages.ExtractAllUserHTTP)
-	http.HandleFunc("/search_genger", pages.ExtractAllUserHTTPGender)
-	http.HandleFunc("/search_status", pages.ExtractAllUserHTTPStatus)
-	http.HandleFunc("/all_data_user_desc", pages.ExtractAllUserHTTPDESC)
-	http.HandleFunc("/all_data_user_asc", pages.ExtractAllUserHTTPASC)
-
+	http.HandleFunc("/search_genger", pages.ExtractAllUserHTTPGender)    //work
+	http.HandleFunc("/search_status", pages.ExtractAllUserHTTPStatus)    //work
+	http.HandleFunc("/all_data_user_desc", pages.ExtractAllUserHTTPDESC) // work
+	http.HandleFunc("/all_data_user_asc", pages.ExtractAllUserHTTPASC)   // work
+	http.HandleFunc("/limit", pages.ExtractAllUserHTTPLimit)             //work требудет доработки с передачей параметра
+	http.HandleFunc("/offset", pages.ExtractAllUserHTTPOffset)			//work требудет доработки с передачей параметра
 	//осталось реализовать запрос с (LIMIT 10;)  на вывод строк
 	//осталось реализовать с лимитом и сдвигом
 	//реализовать /добавление /удаление /по какому-то идентификатору /редактирование
