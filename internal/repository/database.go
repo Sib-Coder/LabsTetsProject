@@ -130,3 +130,80 @@ func ExtractUserDataMas() []model.UserInfo { //получение всех по�
 	return u_mas
 
 }
+
+func ExtractUserDataMasfForIdexGender(g model.UserInfo) []model.UserInfo { //получение всех пользователей из бд
+	var u model.UserInfo
+	var u_mas []model.UserInfo
+	res, err := Db.Query("SELECT name,lastname,surname,gender,status, TO_CHAR(datebirth,'YYYY-MM-DD'), TO_CHAR(dateadded,'YYYY-MM-DD') FROM employees WHERE gender =$1;", g.Gender)
+	if err != nil {
+		panic(err)
+	}
+	for res.Next() {
+		err = res.Scan(&u.Name, &u.LastName, &u.SurName, &u.Gender, &u.Status, &u.DateBirth, &u.DateAdded)
+		if err != nil {
+			panic(err)
+		}
+		//fmt.Println(fmt.Sprintf("in database have %s , %s ", u.FName, u.LName))
+		u_mas = append(u_mas, u)
+	}
+	fmt.Println(u_mas) //пример как вырывать параметры из запроса
+	return u_mas
+
+}
+func ExtractUserDataMasfForIdexStatus(g model.UserInfo) []model.UserInfo { //получение всех пользователей из бд
+	var u model.UserInfo
+	var u_mas []model.UserInfo
+	res, err := Db.Query("SELECT name,lastname,surname,gender,status, TO_CHAR(datebirth,'YYYY-MM-DD'), TO_CHAR(dateadded,'YYYY-MM-DD') FROM employees WHERE status =$1;", g.Status)
+	if err != nil {
+		panic(err)
+	}
+	for res.Next() {
+		err = res.Scan(&u.Name, &u.LastName, &u.SurName, &u.Gender, &u.Status, &u.DateBirth, &u.DateAdded)
+		if err != nil {
+			panic(err)
+		}
+		//fmt.Println(fmt.Sprintf("in database have %s , %s ", u.FName, u.LName))
+		u_mas = append(u_mas, u)
+	}
+	fmt.Println(u_mas) //пример как вырывать параметры из запроса
+	return u_mas
+
+}
+func ExtractUserDataMasDes() []model.UserInfo { //получение всех пользователей из бд
+	var u model.UserInfo
+	var u_mas []model.UserInfo
+	res, err := Db.Query("SELECT name,lastname,surname,gender,status, TO_CHAR(datebirth,'YYYY-MM-DD'), TO_CHAR(dateadded,'YYYY-MM-DD') FROM employees WHERE ORDER BY datebirth DESC ;")
+	if err != nil {
+		panic(err)
+	}
+	for res.Next() {
+		err = res.Scan(&u.Name, &u.LastName, &u.SurName, &u.Gender, &u.Status, &u.DateBirth, &u.DateAdded)
+		if err != nil {
+			panic(err)
+		}
+		//fmt.Println(fmt.Sprintf("in database have %s , %s ", u.FName, u.LName))
+		u_mas = append(u_mas, u)
+	}
+	fmt.Println(u_mas) //пример как вырывать параметры из запроса
+	return u_mas
+
+}
+func ExtractUserDataMasASC() []model.UserInfo { //получение всех пользователей из бд
+	var u model.UserInfo
+	var u_mas []model.UserInfo
+	res, err := Db.Query("SELECT name,lastname,surname,gender,status, TO_CHAR(datebirth,'YYYY-MM-DD'), TO_CHAR(dateadded,'YYYY-MM-DD') FROM employees WHERE ORDER BY datebirth ASC ;")
+	if err != nil {
+		panic(err)
+	}
+	for res.Next() {
+		err = res.Scan(&u.Name, &u.LastName, &u.SurName, &u.Gender, &u.Status, &u.DateBirth, &u.DateAdded)
+		if err != nil {
+			panic(err)
+		}
+		//fmt.Println(fmt.Sprintf("in database have %s , %s ", u.FName, u.LName))
+		u_mas = append(u_mas, u)
+	}
+	fmt.Println(u_mas) //пример как вырывать параметры из запроса
+	return u_mas
+
+}

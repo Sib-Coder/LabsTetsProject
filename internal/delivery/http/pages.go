@@ -111,3 +111,80 @@ func ExtractAllUserHTTP(w http.ResponseWriter, r *http.Request) {
 
 	}
 }
+
+func ExtractAllUserHTTPGender(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method == "GET" {
+		//fmt.Println("My request is: ", r.Body)
+		var user model.UserInfo
+		decode := json.NewDecoder(r.Body).Decode(&user)
+		if decode != nil {
+			fmt.Println(http.StatusOK) //надо найти выдачу ошибки
+		}
+		//обработка параметров через бд
+		result := database.ExtractUserDataMasfForIdexGender(user)
+		//конвертим в Json
+		b, err := json.Marshal(result)
+		if err != nil {
+			fmt.Printf("Error: %s", err)
+			return
+		}
+
+		fmt.Fprintln(w, string(b))
+
+	}
+}
+func ExtractAllUserHTTPStatus(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method == "GET" {
+		//fmt.Println("My request is: ", r.Body)
+		var user model.UserInfo
+		decode := json.NewDecoder(r.Body).Decode(&user)
+		if decode != nil {
+			fmt.Println(http.StatusOK) //надо найти выдачу ошибки
+		}
+		//обработка параметров через бд
+		result := database.ExtractUserDataMasfForIdexGender(user)
+		//конвертим в Json
+		b, err := json.Marshal(result)
+		if err != nil {
+			fmt.Printf("Error: %s", err)
+			return
+		}
+
+		fmt.Fprintln(w, string(b))
+
+	}
+}
+func ExtractAllUserHTTPDESC(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method == "GET" {
+		//обработка параметров через бд
+		result := database.ExtractUserDataMasDes()
+		//конвертим в Json
+		b, err := json.Marshal(result)
+		if err != nil {
+			fmt.Printf("Error: %s", err)
+			return
+		}
+
+		fmt.Fprintln(w, string(b))
+
+	}
+}
+func ExtractAllUserHTTPASC(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method == "GET" {
+		//обработка параметров через бд
+		result := database.ExtractUserDataMasASC()
+		//конвертим в Json
+		b, err := json.Marshal(result)
+		if err != nil {
+			fmt.Printf("Error: %s", err)
+			return
+		}
+
+		fmt.Fprintln(w, string(b))
+
+	}
+}
