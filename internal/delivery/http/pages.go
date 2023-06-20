@@ -3,6 +3,7 @@ package pages
 import (
 	"LabsTetsProject/internal/data"
 	database "LabsTetsProject/internal/repository"
+	"errors"
 
 	"encoding/json"
 	"fmt"
@@ -21,7 +22,8 @@ func UpdateDAtaHTTP(w http.ResponseWriter, r *http.Request) {
 		var user model.UserInfo
 		decode := json.NewDecoder(r.Body).Decode(&user)
 		if decode != nil {
-			fmt.Println(http.StatusOK) //надо найти выдачу ошибки
+			DecodeJsonErr := errors.New("DECODE not Valid ")
+			fmt.Println(DecodeJsonErr)
 		}
 
 		//обработка параметров через бд
@@ -41,7 +43,8 @@ func ReceiveSend(w http.ResponseWriter, r *http.Request) {
 		var user model.UserInfo
 		decode := json.NewDecoder(r.Body).Decode(&user)
 		if decode != nil {
-			fmt.Println(http.StatusOK) //надо найти выдачу ошибки
+			DecodeJsonErr := errors.New("DECODE not Valid ")
+			fmt.Println(DecodeJsonErr) //надо найти выдачу ошибки
 		}
 
 		//обработка параметров через бд
@@ -50,7 +53,8 @@ func ReceiveSend(w http.ResponseWriter, r *http.Request) {
 		//конвертим в Json
 		b, err := json.Marshal(result)
 		if err != nil {
-			fmt.Printf("Error: %s", err)
+			e1 := errors.New("Error: Marshal")
+			fmt.Println(e1)
 			return
 		}
 
@@ -67,7 +71,8 @@ func DeleteDAtaHTTP(w http.ResponseWriter, r *http.Request) {
 		var user model.UserInfo
 		decode := json.NewDecoder(r.Body).Decode(&user)
 		if decode != nil {
-			fmt.Println(http.StatusOK) //надо найти выдачу ошибки
+			DecodeJsonErr := errors.New("DECODE not Valid ")
+			fmt.Println(DecodeJsonErr) //надо найти выдачу ошибки
 		}
 
 		//обработка параметров через бд
@@ -85,7 +90,8 @@ func AddDAtaHTTP(w http.ResponseWriter, r *http.Request) {
 		var user model.UserInfo
 		decode := json.NewDecoder(r.Body).Decode(&user)
 		if decode != nil {
-			fmt.Println(http.StatusOK) //надо найти выдачу ошибки
+			DecodeJsonErr := errors.New("DECODE not Valid ")
+			fmt.Println(DecodeJsonErr) //надо найти выдачу ошибки
 		}
 
 		//обработка параметров через бд
@@ -103,7 +109,8 @@ func ExtractAllUserHTTP(w http.ResponseWriter, r *http.Request) {
 		//конвертим в Json
 		b, err := json.Marshal(result)
 		if err != nil {
-			fmt.Printf("Error: %s", err)
+			e1 := errors.New("Error: Marshal")
+			fmt.Println(e1)
 			return
 		}
 
@@ -119,14 +126,16 @@ func ExtractAllUserHTTPGender(w http.ResponseWriter, r *http.Request) {
 		var user model.UserInfo
 		decode := json.NewDecoder(r.Body).Decode(&user)
 		if decode != nil {
-			fmt.Println(http.StatusOK) //надо найти выдачу ошибки
+			DecodeJsonErr := errors.New("DECODE not Valid ")
+			fmt.Println(DecodeJsonErr) //надо найти выдачу ошибки
 		}
 		//обработка параметров через бд
 		result := database.ExtractUserDataMasfForIdexGender(user)
 		//конвертим в Json
 		b, err := json.Marshal(result)
 		if err != nil {
-			fmt.Printf("Error: %s", err)
+			e1 := errors.New("Error: Marshal")
+			fmt.Println(e1)
 			return
 		}
 
@@ -141,14 +150,16 @@ func ExtractAllUserHTTPStatus(w http.ResponseWriter, r *http.Request) {
 		var user model.UserInfo
 		decode := json.NewDecoder(r.Body).Decode(&user)
 		if decode != nil {
-			fmt.Println(http.StatusOK) //надо найти выдачу ошибки
+			DecodeJsonErr := errors.New("DECODE not Valid ")
+			fmt.Println(DecodeJsonErr) //надо найти выдачу ошибки
 		}
 		//обработка параметров через бд
 		result := database.ExtractUserDataMasfForIdexGender(user)
 		//конвертим в Json
 		b, err := json.Marshal(result)
 		if err != nil {
-			fmt.Printf("Error: %s", err)
+			e1 := errors.New("Error: Marshal")
+			fmt.Println(e1)
 			return
 		}
 
@@ -164,7 +175,8 @@ func ExtractAllUserHTTPDESC(w http.ResponseWriter, r *http.Request) {
 		//конвертим в Json
 		b, err := json.Marshal(result)
 		if err != nil {
-			fmt.Printf("Error: %s", err)
+			e1 := errors.New("Error: Marshal")
+			fmt.Println(e1)
 			return
 		}
 
@@ -180,7 +192,8 @@ func ExtractAllUserHTTPASC(w http.ResponseWriter, r *http.Request) {
 		//конвертим в Json
 		b, err := json.Marshal(result)
 		if err != nil {
-			fmt.Printf("Error: %s", err)
+			e1 := errors.New("Error: Marshal")
+			fmt.Println(e1)
 			return
 		}
 
@@ -197,7 +210,8 @@ func ExtractAllUserHTTPLimit(w http.ResponseWriter, r *http.Request) {
 		//конвертим в Json
 		b, err := json.Marshal(result)
 		if err != nil {
-			fmt.Printf("Error: %s", err)
+			e1 := errors.New("Error: Marshal")
+			fmt.Println(e1)
 			return
 		}
 
@@ -213,7 +227,8 @@ func ExtractAllUserHTTPOffset(w http.ResponseWriter, r *http.Request) {
 		//конвертим в Json
 		b, err := json.Marshal(result)
 		if err != nil {
-			fmt.Printf("Error: %s", err)
+			e1 := errors.New("Error: Marshal")
+			fmt.Println(e1)
 			return
 		}
 
